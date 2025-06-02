@@ -12,8 +12,10 @@ const dynamicQuery = (reqQuery) => {
 
   if(Object.keys(reqQuery).length){
     Object.keys(reqQuery).forEach(key => {
-      console.log(key);
+      // console.log(key, reqQuery[key]);
       const [queryAction, queryKey, queryOperator] = key.split('_');
+      const queryValue = queryKey === 'publishDate' ? reqQuery[key] : Number(reqQuery[key]); // probably a better way to solve this, need to come back if there's time
+      // console.log(queryValue);
       if(queryAction === 'sort'){
         settings.sort[queryKey] = Number(reqQuery[key]);
       } else if(queryAction === 'filter'){
@@ -30,7 +32,7 @@ const dynamicQuery = (reqQuery) => {
             // empty object to pass multiple filter conditions into, so that $gte and $lte works together
             settings.filter[queryKey] = {};
           };
-          settings.filter[queryKey][`$${queryOperator}`] = reqQuery[key];
+          settings.filter[queryKey][`$${queryOperator}`] = queryValue;
         };
       };
     });
@@ -42,7 +44,7 @@ const dynamicQuery = (reqQuery) => {
 const getAllBooks = async (req, res) => {
   const client = await connectToDB();
   try{
-    console.log(req.query);
+    // console.log(req.query);
     const settings = dynamicQuery(req.query);
     const DB_RESPONSE = await client.db('Library').collection('books').find(settings.filter).sort(settings.sort).skip(settings.skip).limit(settings.limit).toArray();
     res.send(DB_RESPONSE);
