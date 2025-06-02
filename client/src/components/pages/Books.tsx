@@ -3,11 +3,12 @@ import BooksContext from "../contexts/BooksContext";
 import { BooksContextType } from "../../types";
 import BookCard from "../UI/molecules/BookCard";
 import styled from "styled-components";
+import { useFormik } from "formik";
 
 const StyledSection = styled.section`
   padding: 20px;
   
-  > div{
+  > div.books{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -16,12 +17,59 @@ const StyledSection = styled.section`
 
 const Books = () => {
 
-  const { books } = useContext(BooksContext) as BooksContextType;
+  const formik = useFormik({
+    initialValues: {
+      publishDate_gte: 1970,
+      publishDate_lte: 2000,
+      inStock: false
+    },
+    onSubmit: async (values) => {
+      // console.log(values);
+      changeFilter(values);
+    }
+  });
+
+  const { books, changeFilter } = useContext(BooksContext) as BooksContextType;
 
   return (
     <StyledSection>
       <h2>Books</h2>
-      <div>
+      <form onSubmit={formik.handleSubmit}>
+        <div>
+          <span>{formik.values.publishDate_gte}</span>
+          <input
+            type="range"
+            name="publishDate_gte" id="publishDate_gte"
+            value={formik.values.publishDate_gte}
+            min={1800}
+            max={formik.values.publishDate_lte - 1}
+            step={1}
+            onChange={formik.handleChange}
+          />
+          <input
+            type="range"
+            name="publishDate_lte" id="publishDate_lte"
+            value={formik.values.publishDate_lte}
+            min={formik.values.publishDate_gte + 1}
+            max={new Date().getFullYear()}
+            step={1}
+            onChange={formik.handleChange}
+          />
+          <span>{formik.values.publishDate_lte}</span>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            name="inStock" id="inStock"
+            checked={formik.values.inStock}
+            onChange={formik.handleChange}
+          />
+          <label htmlFor="inStock">Only available books</label>
+        </div>
+        <input type="submit" value='Filter' />
+        <button type="button" onClick={() => console.log('click')}>Sort By Rating</button>
+      </form>
+      <div className="books">
         {
           books.length > 0 ?
           books.map(book =>

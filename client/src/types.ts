@@ -16,6 +16,13 @@ export type Book = {
 export type BooksContextReducerActionTypes =
 { type: 'setBooks', data: Book[]};
 
+export type BooksContextValues = {
+  publishDate_gte: number;
+  publishDate_lte: number;
+  inStock: boolean;
+}
+
 export type BooksContextType = {
-  books: Book[]
+  books: Book[],
+  changeFilter: (values: BooksContextValues) => void
 };
