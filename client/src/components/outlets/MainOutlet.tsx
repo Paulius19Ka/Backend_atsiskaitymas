@@ -6,7 +6,9 @@ import Footer from "../UI/organisms/Footer";
 const StyledMain = styled.main`
   min-height: calc(100vh - 100px - 40px);
 
-  margin: 20px 20px;
+  h2{
+    margin: 0;
+  }
 `;
 
 const MainOutlet = () => {
