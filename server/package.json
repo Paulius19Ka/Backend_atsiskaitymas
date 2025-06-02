@@ -1,0 +1,21 @@
+{
+  "name": "book_review_site_server",
+  "version": "1.0.0",
+  "description": "A website that contains various book reviews of books within the library",
+  "repository": {
+    "type": "git",
+    "url": "Backend_atsiskaitymas"
+  },
+  "license": "ISC",
+  "author": "Paulius19Ka",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongodb": "^6.16.0"
+  }
+}
