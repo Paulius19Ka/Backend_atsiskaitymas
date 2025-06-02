@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Book } from "../../../types";
+import { Link } from "react-router";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const BookCard = ({ book }: Props) => {
       <span>By: {book.author}</span>
       <span>{book.genres.join(', ')}</span>
       <span>Published: {book.publishDate}</span>
-      <button>Read More</button>
+      <Link to={book._id}>More</Link>
     </StyledDiv>
   );
 }
