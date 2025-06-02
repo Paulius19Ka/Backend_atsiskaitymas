@@ -2,12 +2,22 @@ import { validate as uuidValidate } from 'uuid';
 
 import { connectToDB } from "./helper.js";
 
-const dynamicQuery = () => {
+const dynamicQuery = (reqQuery) => {
   const settings = {
     filter: {},
-    sort: { title: 1 },
+    sort: {},
     skip: 0,
-    limit: 10
+    limit: 100
+  };
+
+  if(Object.keys(reqQuery).length){
+    Object.keys(reqQuery).forEach(key => {
+      console.log(key);
+      const [queryAction, queryKey, queryOperator] = key.split('_');
+      if(queryAction === 'sort'){
+        settings.sort[queryKey] = Number(reqQuery[key]);
+      }
+    });
   };
 
   return settings;
@@ -16,7 +26,8 @@ const dynamicQuery = () => {
 const getAllBooks = async (req, res) => {
   const client = await connectToDB();
   try{
-    const settings = dynamicQuery();
+    console.log(req.query);
+    const settings = dynamicQuery(req.query);
     const DB_RESPONSE = await client.db('Library').collection('books').find().sort(settings.sort).skip(settings.skip).limit(settings.limit).toArray();
     res.send(DB_RESPONSE);
   } catch(err){
