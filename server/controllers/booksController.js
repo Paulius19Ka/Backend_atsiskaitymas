@@ -12,10 +12,10 @@ const dynamicQuery = (reqQuery) => {
 
   if(Object.keys(reqQuery).length){
     Object.keys(reqQuery).forEach(key => {
-      console.log(key, reqQuery[key]);
+      // console.log(key, reqQuery[key]);
       const [queryAction, queryKey, queryOperator] = key.split('_');
       const queryValue = queryKey === 'publishDate' ? reqQuery[key] : Number(reqQuery[key]); // probably a better way to solve this, need to come back if there's time
-      console.log(queryValue);
+      // console.log(queryValue);
       if(queryAction === 'sort'){
         settings.sort[queryKey] = Number(reqQuery[key]);
       } else if(queryAction === 'filter'){
