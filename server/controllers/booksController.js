@@ -16,7 +16,23 @@ const dynamicQuery = (reqQuery) => {
       const [queryAction, queryKey, queryOperator] = key.split('_');
       if(queryAction === 'sort'){
         settings.sort[queryKey] = Number(reqQuery[key]);
-      }
+      } else if(queryAction === 'filter'){
+        if(!queryOperator){
+          // operator does not exist
+          if(isNaN(reqQuery[key])){
+            // value is not a number
+            settings.filter[queryKey] = { $regex: new RegExp(reqQuery[key], 'i')};
+          } else {
+            settings.filter[queryKey] = Number(reqQuery[key]);
+          };
+        } else {
+          if(!settings.filter[queryKey]){
+            // empty object to pass multiple filter conditions into, so that $gte and $lte works together
+            settings.filter[queryKey] = {};
+          };
+          settings.filter[queryKey][`$${queryOperator}`] = reqQuery[key];
+        };
+      };
     });
   };
 
@@ -28,7 +44,7 @@ const getAllBooks = async (req, res) => {
   try{
     console.log(req.query);
     const settings = dynamicQuery(req.query);
-    const DB_RESPONSE = await client.db('Library').collection('books').find().sort(settings.sort).skip(settings.skip).limit(settings.limit).toArray();
+    const DB_RESPONSE = await client.db('Library').collection('books').find(settings.filter).sort(settings.sort).skip(settings.skip).limit(settings.limit).toArray();
     res.send(DB_RESPONSE);
   } catch(err){
     console.log(err);
