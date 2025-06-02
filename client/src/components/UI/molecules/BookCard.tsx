@@ -36,6 +36,7 @@ const BookCard = ({ book }: Props) => {
   return (
     <StyledDiv>
       <span>{book.title}</span>
+      <span>Rating: {book.rating}</span>
       <span className="description">{book.description}</span>
       <span>By: {book.author}</span>
       <span>{book.genres.join(', ')}</span>

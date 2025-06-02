@@ -16,7 +16,8 @@ const BooksContext = createContext<BooksContextType | undefined>(undefined);
 const BooksProvider = ({ children }: ChildrenProp) => {
 
   const [books, dispatch] = useReducer(reducer, []);
-  const queryString = useRef('');
+  const filterString = useRef('');
+  const sortString = useRef('');
 
   const changeFilter = (values: BooksContextValues) => {
     console.log(values);
@@ -30,12 +31,17 @@ const BooksProvider = ({ children }: ChildrenProp) => {
     if(values.inStock){
       filterParams.push(`filter_amountOfCopies_gte=1`);
     }
-    queryString.current = filterParams.join('&');
+    filterString.current = filterParams.join('&');
+    fetchBooks();
+  };
+
+  const changeSort = (e: React.MouseEvent<HTMLButtonElement>) => {
+    sortString.current = `${(e.target as HTMLButtonElement).value}`
     fetchBooks();
   };
 
   const fetchBooks = () => {
-    fetch(`http://localhost:5500/books?${queryString.current}`)
+    fetch(`http://localhost:5500/books?${filterString.current}&${sortString.current}`)
       .then(res => res.json())
       .then((data: Book[]) => {
         dispatch({
@@ -53,7 +59,8 @@ const BooksProvider = ({ children }: ChildrenProp) => {
     <BooksContext.Provider
       value={{
         books,
-        changeFilter
+        changeFilter,
+        changeSort
       }}
     >
       { children }

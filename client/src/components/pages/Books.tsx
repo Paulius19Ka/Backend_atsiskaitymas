@@ -29,7 +29,7 @@ const Books = () => {
     }
   });
 
-  const { books, changeFilter } = useContext(BooksContext) as BooksContextType;
+  const { books, changeFilter, changeSort } = useContext(BooksContext) as BooksContextType;
 
   return (
     <StyledSection>
@@ -66,8 +66,21 @@ const Books = () => {
           />
           <label htmlFor="inStock">Only available books</label>
         </div>
+        <button type="button" onClick={changeSort} value={`sort_rating=1`}>Rating ASC</button>
+        <button type="button" onClick={changeSort} value={`sort_rating=-1`}>Rating DESC</button>
         <input type="submit" value='Filter' />
-        <button type="button" onClick={() => console.log('click')}>Sort By Rating</button>
+        <button type="button" onClick={() => {
+            formik.setValues({
+              publishDate_gte: 1800,
+              publishDate_lte: new Date().getFullYear(),
+              inStock: false
+            });
+            changeFilter({
+              publishDate_gte: 1800,
+              publishDate_lte: new Date().getFullYear(),
+              inStock: false
+            });
+          }}>Reset</button>
       </form>
       <div className="books">
         {
