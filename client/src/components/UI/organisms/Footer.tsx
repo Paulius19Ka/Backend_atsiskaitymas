@@ -27,13 +27,19 @@ const StyledFooter = styled.footer`
       }
     }
   }
+
+  @media (max-width: 768px){
+    > div.address{
+      display: none;
+    }
+  }
 `;
 
 const Footer = () => {
   return (
     <StyledFooter>
       <span>Copyright &copy; PK {new Date().getFullYear()}</span>
-      <div>
+      <div className="address">
         <span>
           98 Withers Close, Allerton, L18 4UN, UK
         </span>

@@ -95,6 +95,10 @@ const StyledSection = styled.section`
       }
     }
   }
+
+  @media (max-width: 768px){
+    padding: 0;
+  }
 `;
 
 const Books = () => {
@@ -171,7 +175,7 @@ const Books = () => {
           books.length > 0 ?
           books.map(book =>
             <BookCard key={book._id} book={book} />
-          ) : <p>Loading...</p>
+          ) : <p>Loading books...</p>
         }
       </div>
     </StyledSection>

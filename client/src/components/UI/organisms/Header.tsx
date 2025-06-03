@@ -22,6 +22,7 @@ const StyledHeader = styled.header`
       justify-content: space-between;
       align-items: center;
       gap: 10px;
+      margin: 0;
       
       > li{
         list-style-type: none;
@@ -40,6 +41,19 @@ const StyledHeader = styled.header`
             color: #b6d8ff;
           }
         }
+      }
+    }
+  }
+
+  @media (min-width: 768px){
+    justify-content: center;
+    padding: 0;
+    gap: 10px;
+
+    > nav{
+
+      > ul{
+        padding: 0;
       }
     }
   }

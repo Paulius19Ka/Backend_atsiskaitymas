@@ -6,6 +6,10 @@ import styled from "styled-components";
 const StyledSection = styled.section`
   > div{
 
+    > h3{
+      font-size: 1.8em;
+    }
+
     > div{
       display: flex;
       gap: 10px;

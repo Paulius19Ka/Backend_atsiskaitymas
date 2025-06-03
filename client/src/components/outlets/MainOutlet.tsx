@@ -16,9 +16,19 @@ const StyledMain = styled.main`
     margin: 0 auto;
     padding: 20px;
 
+    > div.books{
+      justify-content: center;
+    }
+
     > p{
       margin: 0;
       padding: 10px 0px;
+    }
+  }
+
+  @media (max-width: 768px){
+    > section{
+      max-width: 100%;
     }
   }
 `;
