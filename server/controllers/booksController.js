@@ -47,6 +47,9 @@ const getAllBooks = async (req, res) => {
     // console.log(req.query);
     const settings = dynamicQuery(req.query);
     const DB_RESPONSE = await client.db('Library').collection('books').find(settings.filter).sort(settings.sort).skip(settings.skip).limit(settings.limit).toArray();
+    // if(DB_RESPONSE.length === 0){
+    //   return res.status(404).send({ error: `No books were found.` });
+    // };
     res.send(DB_RESPONSE);
   } catch(err){
     console.log(err);

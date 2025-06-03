@@ -25,5 +25,6 @@ export type BooksContextValues = {
 export type BooksContextType = {
   books: Book[],
   changeFilter: (values: BooksContextValues) => void,
-  changeSort: (e: React.MouseEvent<HTMLButtonElement>) => void
+  changeSort: (e: React.MouseEvent<HTMLButtonElement>) => void,
+  loading: boolean
 };

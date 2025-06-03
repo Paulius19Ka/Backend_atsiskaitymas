@@ -115,7 +115,18 @@ const Books = () => {
     }
   });
 
-  const { books, changeFilter, changeSort } = useContext(BooksContext) as BooksContextType;
+  const sliderConstraints = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // prevent overlapping slider values, gte always one year lower than lte and lte
+    const { name, value } = e.target;
+    // const numericValue = Number(value);
+    if(name === "publishDate_gte"){
+      formik.setFieldValue("publishDate_gte", Math.min(Number(value), formik.values.publishDate_lte - 1));
+    } else if(name === "publishDate_lte"){
+      formik.setFieldValue("publishDate_lte", Math.max(Number(value), formik.values.publishDate_gte + 1));
+    };
+  };
+
+  const { books, changeFilter, changeSort, loading } = useContext(BooksContext) as BooksContextType;
 
   return (
     <StyledSection>
@@ -128,19 +139,19 @@ const Books = () => {
             name="publishDate_gte" id="publishDate_gte"
             value={formik.values.publishDate_gte}
             min={1800}
-            max={formik.values.publishDate_lte - 1}
+            max={new Date().getFullYear()}
             step={1}
-            onChange={formik.handleChange}
+            onChange={sliderConstraints}
           />
           <input
             className="slider"
             type="range"
             name="publishDate_lte" id="publishDate_lte"
             value={formik.values.publishDate_lte}
-            min={formik.values.publishDate_gte + 1}
+            min={1800}
             max={new Date().getFullYear()}
             step={1}
-            onChange={formik.handleChange}
+            onChange={sliderConstraints}
           />
           <span>{formik.values.publishDate_lte}</span>
         </div>
@@ -172,10 +183,11 @@ const Books = () => {
       </form>
       <div className="books">
         {
+          loading ? <p>Loading books...</p> :
           books.length > 0 ?
           books.map(book =>
             <BookCard key={book._id} book={book} />
-          ) : <p>Loading books...</p>
+          ) : <p>No books were found...</p>
         }
       </div>
     </StyledSection>
