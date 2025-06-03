@@ -1,7 +1,7 @@
 # Backend_atsiskaitymas
 
 ### Paleidimas: 
-1. Naviguoti į server ir client aplankus. 2. Suintaliuoti node modulius. 3. Abiejuose aplankuose paleisti komandą [npm run dev].
+1. Naviguoti į server ir client aplankus. 2. Suinstaliuoti node modulius. 3. Abiejuose aplankuose paleisti komandą [npm run dev].
 
 ### Projekto autorius
 **Paulius Karbauskas**
