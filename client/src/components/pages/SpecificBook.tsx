@@ -5,19 +5,74 @@ import styled from "styled-components";
 
 const StyledSection = styled.section`
   > div{
-    width: 60%;
 
     > div{
-    display: flex;
-    gap: 20px;
+      display: flex;
+      gap: 10px;
 
-    width: 100%;
+      width: 100%;
 
       > div{
         height: 50vh;
 
         > img{
           height: 100%;
+          border-radius: 5px;
+        }
+      }
+
+      > div.info{
+        border: 1px solid #554a67;
+        border-radius: 5px;
+        padding: 10px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        > p{
+          margin: 0;
+          border-bottom: 1px solid #554a67;
+        }
+
+        > button{
+          background-color: #b6d8ff;
+          color: black;
+          text-decoration: none;
+          font-weight: bold;
+          width: max-content;
+          padding: 2px 5px;
+          border-radius: 5px;
+          transition: ease-in-out 0.2s;
+          border: none;
+
+          &:hover{
+            background-color: #449bff;
+            cursor: pointer;
+          }
+
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px){
+    > div{
+      
+      > div{
+        flex-direction: column;
+
+        > div{
+          height: unset;
+
+          > img{
+            width: 100%;
+            height: auto;
+          }
+        }
+
+        > div.info{
+          gap: 20px;
         }
       }
     }
@@ -47,13 +102,13 @@ const SpecificBook = () => {
             <div>
               <img src={book.imageUrl} alt={book.title} />
             </div>
-            <div>
+            <div className="info">
               <p>Published: {book.publishDate}</p>
               <p>Author: {book.author}</p>
               <p>Genres: {book.genres.join(', ')}</p>
               <p>Pages: {book.pages}</p>
               <p>Rating: {book.rating}/5</p>
-              <p>Ammount of copies: {book.amountOfCopies}</p>
+              <p>Amount of copies in stock: {book.amountOfCopies}</p>
               <p>{book.description}</p>
               <button onClick={() => navigate(-1)}>Back</button>
             </div>
