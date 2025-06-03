@@ -50,7 +50,7 @@ const StyledDiv = styled.div<{ $cover: string }>`
   }
 
   > a{
-    background-color: #a4a4a4;
+    background-color: #b6d8ff;
     color: black;
     text-decoration: none;
     font-weight: bold;
@@ -59,7 +59,7 @@ const StyledDiv = styled.div<{ $cover: string }>`
     border-radius: 5px;
 
     &:hover{
-      background-color: #ffffff;
+      background-color: #449bff;
     }
   }
 
