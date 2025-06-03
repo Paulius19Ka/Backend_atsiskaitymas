@@ -103,7 +103,7 @@ const BookCard = ({ book }: Props) => {
       <span>By: {book.author}</span>
       <span>{book.genres.join(', ')}</span>
       <span>Published: {book.publishDate}</span>
-      <Link to={book._id}>More</Link>
+      <Link target="_blank" to={book._id}>More</Link>
     </StyledDiv>
   );
 }

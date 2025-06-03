@@ -114,7 +114,7 @@ const SpecificBook = () => {
               <p>Rating: {book.rating}/5</p>
               <p>Amount of copies in stock: {book.amountOfCopies}</p>
               <p>{book.description}</p>
-              <button onClick={() => navigate(-1)}>Back</button>
+              <button onClick={() => navigate('/books')}>Back</button>
             </div>
           </div>
         </div>

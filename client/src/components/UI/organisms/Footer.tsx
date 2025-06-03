@@ -50,10 +50,10 @@ const Footer = () => {
         </span>
       </div>
       <div>
-        <Link to='https://github.com/Paulius19Ka/Backend_atsiskaitymas' >{<GitHubIcon />}</Link>
-        <Link to='https://www.facebook.com/' >{<FacebookIcon />}</Link>
-        <Link to='https://www.instagram.com/' >{<InstagramIcon />}</Link>
-        <Link to='https://bsky.app/' >{<TwitterIcon />}</Link>
+        <Link target="_blank" to='https://github.com/Paulius19Ka/Backend_atsiskaitymas' >{<GitHubIcon />}</Link>
+        <Link target="_blank" to='https://www.facebook.com/' >{<FacebookIcon />}</Link>
+        <Link target="_blank" to='https://www.instagram.com/' >{<InstagramIcon />}</Link>
+        <Link target="_blank" to='https://bsky.app/' >{<TwitterIcon />}</Link>
       </div>
     </StyledFooter>
   );
