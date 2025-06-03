@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useRef } from "react";
+import { createContext, useEffect, useReducer, useRef, useState } from "react";
 
 import { Book, BooksContextReducerActionTypes, BooksContextType, BooksContextValues, ChildrenProp } from "../../types";
 
@@ -18,6 +18,7 @@ const BooksProvider = ({ children }: ChildrenProp) => {
   const [books, dispatch] = useReducer(reducer, []);
   const filterString = useRef('');
   const sortString = useRef('');
+  const [loading, setLoading] = useState(true);
 
   const changeFilter = (values: BooksContextValues) => {
     // console.log(values);
@@ -41,6 +42,7 @@ const BooksProvider = ({ children }: ChildrenProp) => {
   };
 
   const fetchBooks = () => {
+    setLoading(true);
     fetch(`http://localhost:5500/books?${filterString.current}&${sortString.current}`)
       .then(res => res.json())
       .then((data: Book[]) => {
@@ -48,6 +50,9 @@ const BooksProvider = ({ children }: ChildrenProp) => {
           type: 'setBooks',
           data
         });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -60,7 +65,8 @@ const BooksProvider = ({ children }: ChildrenProp) => {
       value={{
         books,
         changeFilter,
-        changeSort
+        changeSort,
+        loading
       }}
     >
       { children }
