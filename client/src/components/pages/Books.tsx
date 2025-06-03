@@ -11,7 +11,93 @@ const StyledSection = styled.section`
   > div.books{
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
+  }
+
+  > form{
+    padding: 20px 0px;
+    padding-bottom: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    > div{
+      display: flex;
+      align-items: center;
+
+      > span, label{
+        color: white;
+      }
+
+      > input.slider{
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 10px;
+        background: #b6d8ff;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+
+        &:hover{
+          opacity: 1;
+        }
+      }
+
+      > input.slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 50px;
+        width: 17px;
+        height: 17px;
+        background: #449bff;
+        cursor: pointer;
+      }
+
+      > input.checkbox{
+        -webkit-appearance: none;
+        appearance: none;
+        /* position: absolute; */
+        top: 0;
+        left: 0;
+        height: 17px;
+        width: 17px;
+        background-color: #b6d8ff;
+
+        &:hover{
+          background-color: #449bff;
+        }
+
+        &:checked{
+          transform: rotate(45deg);
+          background-color: #00d707;
+          border-radius: 3px;
+        }
+      }
+    }
+
+    > button, input{
+      background-color: #b6d8ff;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      padding: 2px 5px;
+      transition: ease-in-out 0.2s;
+
+      &:hover{
+        background-color: #449bff;
+        cursor: pointer;
+      }
+    }
+  }
+
+  @media (max-width: 768px){
+    padding: 0;
   }
 `;
 
@@ -33,11 +119,11 @@ const Books = () => {
 
   return (
     <StyledSection>
-      <h2>Books</h2>
       <form onSubmit={formik.handleSubmit}>
         <div>
           <span>{formik.values.publishDate_gte}</span>
           <input
+            className="slider"
             type="range"
             name="publishDate_gte" id="publishDate_gte"
             value={formik.values.publishDate_gte}
@@ -47,6 +133,7 @@ const Books = () => {
             onChange={formik.handleChange}
           />
           <input
+            className="slider"
             type="range"
             name="publishDate_lte" id="publishDate_lte"
             value={formik.values.publishDate_lte}
@@ -59,12 +146,13 @@ const Books = () => {
         </div>
         <div>
           <input
+            className="checkbox"
             type="checkbox"
             name="inStock" id="inStock"
             checked={formik.values.inStock}
             onChange={formik.handleChange}
           />
-          <label htmlFor="inStock">Only available books</label>
+          <label htmlFor="inStock">Available</label>
         </div>
         <button type="button" onClick={changeSort} value={`sort_rating=1`}>Rating ASC</button>
         <button type="button" onClick={changeSort} value={`sort_rating=-1`}>Rating DESC</button>
@@ -87,7 +175,7 @@ const Books = () => {
           books.length > 0 ?
           books.map(book =>
             <BookCard key={book._id} book={book} />
-          ) : <p>Loading...</p>
+          ) : <p>Loading books...</p>
         }
       </div>
     </StyledSection>

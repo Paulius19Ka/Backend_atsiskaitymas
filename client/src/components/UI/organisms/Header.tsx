@@ -2,8 +2,8 @@ import { NavLink } from "react-router";
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
-  height: 100px;
-  background-color: black;
+  height: 40px;
+  background-color: #231c2b;
 
   display: flex;
   justify-content: space-between;
@@ -22,19 +22,38 @@ const StyledHeader = styled.header`
       justify-content: space-between;
       align-items: center;
       gap: 10px;
+      margin: 0;
       
       > li{
         list-style-type: none;
 
         > a{
-          color: white;
+          color: #ffffff;
           text-decoration: none;
           font-weight: 600;
+          transition: ease-in-out 0.2s;
 
           &.active{
-            color: red;
+            color: #449bff;
+          }
+
+          &:hover{
+            color: #b6d8ff;
           }
         }
+      }
+    }
+  }
+
+  @media (min-width: 768px){
+    justify-content: center;
+    padding: 0;
+    gap: 10px;
+
+    > nav{
+
+      > ul{
+        padding: 0;
       }
     }
   }

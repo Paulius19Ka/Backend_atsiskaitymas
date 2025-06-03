@@ -20,7 +20,7 @@ const BooksProvider = ({ children }: ChildrenProp) => {
   const sortString = useRef('');
 
   const changeFilter = (values: BooksContextValues) => {
-    console.log(values);
+    // console.log(values);
     const filterParams = [];
     if(values.publishDate_gte){
       filterParams.push(`filter_publishDate_gte=${values.publishDate_gte}`);
