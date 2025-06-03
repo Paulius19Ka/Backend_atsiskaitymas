@@ -11,8 +11,7 @@ const StyledDiv = styled.div<{ $cover: string }>`
   height: 340px;
   background-color: #141414;
   padding: 20px;
-  border-top-right-radius: 15px;
-  border-bottom-left-radius: 15px;
+  border-radius: 15px;
 
   background-image: url(${props => props.$cover});
   background-size: cover;
@@ -72,8 +71,7 @@ const StyledDiv = styled.div<{ $cover: string }>`
     background-color: #141414dc;
     height: 100%;
     width: 100%;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
+    border-radius: 15px;
     z-index: 1;
     transition: ease-in-out 0.2s;
     opacity: 0;
